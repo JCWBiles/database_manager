@@ -4,13 +4,28 @@ require 'pg'
 
 class BookmarkManager < Sinatra::Base
   get '/' do
-    'Bookmark Manager'
+    erb :index
   end
 
-  get '/bookmarks' do
+  get '/view_bookmarks' do
+    # p ENV
     @bookmarks = Bookmark.all
-    erb :'bookmarks/index'
+    erb :view_bookmarks
   end
 
+  get '/add' do
+    erb :add
+  end
+
+  post '/view_bookmarks' do
+    Bookmark.create(params[:adding_link])
+    redirect '/view_bookmarks'
+  end
+
+  get '/view_bookmarks' do
+    @bookmarks = Bookmark.all
+    erb :view_bookamrks
+  end
+  
   run! if app_file == $0
 end
