@@ -18,13 +18,8 @@ class BookmarkManager < Sinatra::Base
   end
 
   post '/view_bookmarks' do
-    Bookmark.create(params[:adding_link])
+    Bookmark.create(url: params[:url], title: params[:title])
     redirect '/view_bookmarks'
-  end
-
-  get '/view_bookmarks' do
-    @bookmarks = Bookmark.all
-    erb :view_bookamrks
   end
   
   run! if app_file == $0

@@ -9,17 +9,14 @@ end
 
 feature 'Viewing bookmarks' do
   scenario 'A user can see bookmarks' do
-    connection = PG.connect(dbname: 'bookmark_manager_test')
-
-    # Add the test data
-    connection.exec("INSERT INTO bookmarks VALUES(1, 'http://www.makersacademy.com');")
-    connection.exec("INSERT INTO bookmarks VALUES(2, 'http://www.destroyallsoftware.com');")
-    connection.exec("INSERT INTO bookmarks VALUES(3, 'http://www.google.com');")
+    Bookmark.create(url: "https://www.google.co.uk/", title: "Google")
+    Bookmark.create(url: "https://www.bbc.co.uk/", title: "BBC")
+    Bookmark.create(url: "https://uk.yahoo.com/?p=us&guccounter=1", title: "Yahoo")
 
     visit('/view_bookmarks')
 
-    expect(page).to have_content "http://www.makersacademy.com"
-    expect(page).to have_content "http://www.destroyallsoftware.com"
-    expect(page).to have_content "http://www.google.com"
+    expect(page).to have_link('Google', href: "https://www.google.co.uk/")
+    expect(page).to have_link('BBC', href: "https://www.bbc.co.uk/")
+    expect(page).to have_link('Yahoo', href: "https://uk.yahoo.com/?p=us&guccounter=1")
   end
 end
