@@ -1,0 +1,15 @@
+<h1>List of current bookmarks</h1>
+
+<form action='/' method='get'>
+<input type='submit' value='Return to home page'>
+</form>
+
+<form action='/add' method='get'>
+<input type='submit' value='Add Bookmarks'>
+</form>
+
+<ul>
+  <% @bookmarks.each do |bookmark| %>
+    <li><%= bookmark %></li>
+  <% end %>
+</ul>
